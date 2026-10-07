@@ -1,0 +1,244 @@
+{
+  "name": "SMR",
+  "id": "model",
+  "metadata": {
+    "Author": "user",
+    "Created": "6/20/2025 3:14 PM"
+  },
+  "diagrams": [
+    {
+      "diagramType": "bdd",
+      "name": "SMR Architecture",
+      "id": "bdd1",
+      "owner": {
+        "path": "SMR::Architecture",
+        "idPath": "model::model_item1"
+      },
+      "blocks": [
+        {
+          "name": "Cooling System",
+          "id": "bdd1_block1",
+          "stereotypes": [
+            "Block"
+          ]
+        },
+        {
+          "name": "Reactor Pressure Vessel",
+          "id": "bdd1_block2",
+          "stereotypes": [
+            "Block"
+          ]
+        },
+        {
+          "name": "SMR Unit",
+          "id": "bdd1_block3",
+          "stereotypes": [
+            "Block"
+          ],
+          "properties": [
+            {
+              "name": "maxPowerOutput",
+              "id": "bdd1_block3_property1",
+              "stereotypes": [
+                "ValueProperty"
+              ],
+              "type": {
+                "name": "Real"
+              }
+            },
+            {
+              "name": "modularityLevel",
+              "id": "bdd1_block3_property2",
+              "stereotypes": [
+                "ValueProperty"
+              ],
+              "type": {
+                "name": "Integer"
+              },
+              "defaultValue": 3
+            },
+            {
+              "name": "heatTransfer",
+              "id": "bdd1_block3_property3",
+              "stereotypes": [
+                "PartProperty"
+              ],
+              "type": {
+                "name": "Cooling System",
+                "idref": "bdd1_block1"
+              }
+            },
+            {
+              "name": "mainContainer",
+              "id": "bdd1_block3_property4",
+              "stereotypes": [
+                "PartProperty"
+              ],
+              "type": {
+                "name": "Reactor Pressure Vessel",
+                "idref": "bdd1_block2"
+              }
+            },
+            {
+              "name": "neutronSource",
+              "id": "bdd1_block3_property5",
+              "stereotypes": [
+                "PartProperty"
+              ],
+              "type": {
+                "name": "Integrated Core",
+                "idref": "bdd1_block4"
+              }
+            }
+          ]
+        },
+        {
+          "name": "Integrated Core",
+          "id": "bdd1_block4",
+          "stereotypes": [
+            "Block"
+          ]
+        }
+      ],
+      "relationships": [
+        {
+          "id": "bdd1_relationship1",
+          "type": "DirectedComposition",
+          "source": {
+            "name": "SMR Unit",
+            "idref": "bdd1_block3"
+          },
+          "target": {
+            "name": "Reactor Pressure Vessel",
+            "idref": "bdd1_block2"
+          }
+        },
+        {
+          "id": "bdd1_relationship2",
+          "type": "DirectedComposition",
+          "source": {
+            "name": "SMR Unit",
+            "idref": "bdd1_block3"
+          },
+          "target": {
+            "name": "Cooling System",
+            "idref": "bdd1_block1"
+          }
+        },
+        {
+          "id": "bdd1_relationship3",
+          "type": "DirectedComposition",
+          "source": {
+            "name": "SMR Unit",
+            "idref": "bdd1_block3"
+          },
+          "target": {
+            "name": "Integrated Core",
+            "idref": "bdd1_block4"
+          }
+        }
+      ]
+    },
+    {
+      "diagramType": "ibd",
+      "name": "SMR Unit",
+      "id": "ibd1",
+      "owner": {
+        "path": "SMR::Architecture::SMR Unit",
+        "idPath": "model::model_item1::bdd1_block3"
+      },
+      "context": {
+        "name": "SMR Unit",
+        "idref": "bdd1_block3"
+      },
+      "properties": [
+        {
+          "name": "heatTransfer",
+          "id": "bdd1_block3_property3",
+          "stereotypes": [
+            "PartProperty"
+          ],
+          "type": {
+            "name": "Cooling System",
+            "idref": "bdd1_block1"
+          }
+        },
+        {
+          "name": "mainContainer",
+          "id": "bdd1_block3_property4",
+          "stereotypes": [
+            "PartProperty"
+          ],
+          "type": {
+            "name": "Reactor Pressure Vessel",
+            "idref": "bdd1_block2"
+          }
+        },
+        {
+          "name": "neutronSource",
+          "id": "bdd1_block3_property5",
+          "stereotypes": [
+            "PartProperty"
+          ],
+          "type": {
+            "name": "Integrated Core",
+            "idref": "bdd1_block4"
+          }
+        }
+      ],
+      "connectors": [
+        {
+          "id": "ibd1_connector1",
+          "ends": [
+            {
+              "name": "neutronSource",
+              "idref": "bdd1_block3_property5"
+            },
+            {
+              "name": "mainContainer",
+              "idref": "bdd1_block3_property4"
+            }
+          ]
+        },
+        {
+          "id": "ibd1_connector2",
+          "ends": [
+            {
+              "name": "neutronSource",
+              "idref": "bdd1_block3_property5"
+            },
+            {
+              "name": "heatTransfer",
+              "idref": "bdd1_block3_property3"
+            }
+          ],
+          "itemFlows": [
+            {
+              "name": "flow for Heat",
+              "id": "ibd1_connector2_itemFlow1",
+              "conveyed": {
+                "name": "Heat",
+                "idref": "ibd1_connector2_itemFlow1_conveyed"
+              },
+              "sourceIdref": "bdd1_block4",
+              "targetIdref": "bdd1_block1"
+            }
+          ]
+        },
+        {
+          "id": "ibd1_connector3",
+          "ends": [
+            {
+              "name": "mainContainer",
+              "idref": "bdd1_block3_property4"
+            },
+            {
+              "name": "heatTransfer",
+              "idref": "bdd1_block3_property3"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

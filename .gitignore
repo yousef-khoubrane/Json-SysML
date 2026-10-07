@@ -1,0 +1,9 @@
+*.bak
+*.xml.bak
+*.pyc
+.venv/
+.vscode/
+# Evaluation models, derived models, and raw LLM responses stay local.
+/evaluation/data/*
+!/evaluation/data/README.md
+/evaluation/results/

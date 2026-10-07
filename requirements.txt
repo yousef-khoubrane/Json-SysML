@@ -1,0 +1,5 @@
+openai==2.45.0
+tiktoken==0.13.0
+lxml==6.1.1
+tqdm==4.68.4
+pandas==3.0.3
